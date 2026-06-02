@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Signup Portal</h1>
+
+        <form id="signupForm">
+
+            <label for="username">Username</label>
+            <input type="text" id="username">
+            <span id="usernameError" class="error"></span>
+
+            <label for="email">Email</label>
+            <input type="text" id="email">
+            <span id="emailError" class="error"></span>
+
+            <label for="password">Password</label>
+            <input type="password" id="password">
+            <span id="passwordError" class="error"></span>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms">
+                <label for="terms">I accept the Terms and Conditions</label>
+            </div>
+
+            <span id="termsError" class="error"></span>
+
+            <button type="submit">Sign Up</button>
+
+        </form>
+
+        <hr>
+
+        <button id="resendBtn" disabled>
+            Resend Verification (10)
+        </button>
+
+    </div>
+
+    <script src="validation.js"></script>
+    <script src="async.js"></script>
+
+</body>
+</html>
