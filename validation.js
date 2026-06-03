@@ -9,63 +9,135 @@ form.addEventListener("submit", function(event){
     let password = document.getElementById("password");
     let terms = document.getElementById("terms");
 
-    let usernameError = document.getElementById("usernameError");
-    let emailError = document.getElementById("emailError");
-    let passwordError = document.getElementById("passwordError");
-    let termsError = document.getElementById("termsError");
+    document.getElementById("usernameError").textContent = "";
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
+    document.getElementById("termsError").textContent = "";
 
-    usernameError.textContent = "";
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    termsError.textContent = "";
-
-    username.style.border = "1px solid #cccccc";
-    email.style.border = "1px solid #cccccc";
-    password.style.border = "1px solid #cccccc";
+    username.classList.remove("invalid");
+    email.classList.remove("invalid");
+    password.classList.remove("invalid");
 
     let valid = true;
 
-    if(username.value.trim() === ""){
-        usernameError.textContent = "Username is required";
-        username.style.border = "2px solid red";
+    // Username Validation
+
+    try{
+
+        if(username.value.trim() === ""){
+            throw new Error("Username is required");
+        }
+
+    }
+    catch(error){
+
+        document.getElementById("usernameError").textContent =
+        error.message;
+
+        username.classList.add("invalid");
+
         valid = false;
     }
+
+    // Email Validation
 
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if(email.value.trim() === ""){
-        emailError.textContent = "Email is required";
-        email.style.border = "2px solid red";
+        document.getElementById("emailError").textContent =
+        "Email is required";
+
+        email.classList.add("invalid");
+
+        valid = false;
+    }
+    else if(!email.value.includes("@")){
+        document.getElementById("emailError").textContent =
+        "Email must contain @";
+
+        email.classList.add("invalid");
+
+        valid = false;
+    }
+    else if(!email.value.includes(".")){
+        document.getElementById("emailError").textContent =
+        "Email must contain a domain such as .com";
+
+        email.classList.add("invalid");
+
         valid = false;
     }
     else if(!emailPattern.test(email.value)){
-        emailError.textContent = "Invalid email format";
-        email.style.border = "2px solid red";
+        document.getElementById("emailError").textContent =
+        "Please enter a valid email address";
+
+        email.classList.add("invalid");
+
         valid = false;
     }
 
-    if(password.value.trim() === ""){
-        passwordError.textContent = "Password is required";
-        password.style.border = "2px solid red";
-        valid = false;
-    }
-    else if(password.value.length < 8){
-        passwordError.textContent =
+    // Password Validation
+
+    if(password.value.length < 8){
+
+        document.getElementById("passwordError").textContent =
         "Password must be at least 8 characters";
-        password.style.border = "2px solid red";
+
+        password.classList.add("invalid");
+
         valid = false;
     }
+
+    // Terms Checkbox
 
     if(!terms.checked){
-        termsError.textContent =
-        "You must accept the terms and conditions";
+
+        document.getElementById("termsError").textContent =
+        "You must accept the terms";
+
         valid = false;
     }
 
     if(valid){
-        alert("Signup Successful");
 
-        form.reset();
+        alert("Signup Successful!");
+
     }
+
+});
+
+
+// Countdown Timer
+
+let countdown = 10;
+
+const resendBtn = document.getElementById("resendBtn");
+
+let timer = setInterval(function(){
+
+    countdown--;
+
+    resendBtn.textContent =
+    `Resend Verification (${countdown})`;
+
+    if(countdown === 0){
+
+        clearInterval(timer);
+
+        resendBtn.disabled = false;
+
+        resendBtn.textContent =
+        "Resend Verification";
+
+    }
+
+}, 1000);
+
+
+// Resend Button Click Event
+
+resendBtn.addEventListener("click", function(){
+
+    alert("Verification email has been resent.");
 
 });

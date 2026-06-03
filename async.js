@@ -1,30 +1,4 @@
-// Resend Verification Countdown
-
-let resendBtn = document.getElementById("resendBtn");
-
-let countdown = 10;
-
-let timer = setInterval(function(){
-
-    countdown--;
-
-    resendBtn.textContent =
-    "Resend Verification (" + countdown + ")";
-
-    if(countdown === 0){
-
-        clearInterval(timer);
-
-        resendBtn.disabled = false;
-
-        resendBtn.textContent =
-        "Resend Verification";
-    }
-
-}, 1000);
-
-
-// Fake Student Database
+// Fake Database
 
 const studentDatabase = [
 
@@ -33,52 +7,53 @@ const studentDatabase = [
     firstName: "Sharon",
     lastName: "Mashai",
     email: "sharon@gmail.com",
-    course: "Computer Science",
+    course: "JavaScript",
     age: 24
 },
 
 {
     id: 2,
-    firstName: "John",
-    lastName: "Smith",
-    email: "john@gmail.com",
-    course: "Information Technology",
-    age: 21
-},
-
-{
-    id: 3,
-    firstName: "Mary",
-    lastName: "Jones",
-    email: "mary@gmail.com",
-    course: "Software Development",
+    firstName: "Motsatsi",
+    lastName: "Leshabane",
+    email: "motsatsi@gmail.com",
+    course: "Web Development",
     age: 22
 },
 
 {
-    id: 4,
-    firstName: "Peter",
-    lastName: "Brown",
-    email: "peter@gmail.com",
-    course: "Networking",
+    id: 3,
+    firstName: "John",
+    lastName: "Smith",
+    email: "john@gmail.com",
+    course: "Python",
     age: 23
 },
 
 {
+    id: 4,
+    firstName: "Nathan",
+    lastName: "Boshoff",
+    email: "nathan@gmail.com",
+    course: "Data Science",
+    age: 24
+},
+
+{
     id: 5,
-    firstName: "Sarah",
-    lastName: "White",
-    email: "sarah@gmail.com",
+    firstName: "Ntombizodwa",
+    lastName: "Zulu",
+    email: "ntombizodwa@gmail.com",
     course: "Cyber Security",
-    age: 20
+    age: 25
 }
 
 ];
 
 
-// Question 1 - Synchronous JavaScript
+// QUESTION 1
+// Synchronous JavaScript
 
-function synchronousDemo(){
+function synchronousExample(){
 
     console.log("Step-1 - The function is starting");
 
@@ -88,21 +63,76 @@ function synchronousDemo(){
 
 }
 
-synchronousDemo();
+synchronousExample();
 
 
-// Question 2 - setTimeout()
+// QUESTION 2
+// Using setTimeout()
 
 function displayStudents(){
 
-    console.log("Student Records:");
+    setTimeout(function(){
 
-    studentDatabase.forEach(function(student){
+        let output = "<h2>Student Records</h2>";
 
-        console.log(student);
+        studentDatabase.forEach(function(student){
+
+            output += `
+            <p>
+                <strong>ID:</strong> ${student.id}<br>
+                <strong>Name:</strong> ${student.firstName} ${student.lastName}<br>
+                <strong>Email:</strong> ${student.email}<br>
+                <strong>Course:</strong> ${student.course}<br>
+                <strong>Age:</strong> ${student.age}
+            </p>
+            <hr>
+            `;
+        });
+
+        document.getElementById("studentOutput").innerHTML =
+        output;
+
+    }, 3000);
+
+}
+
+displayStudents();
+
+
+// Usinf Promise 
+
+function fetchStudents(){
+
+    return new Promise(function(resolve, reject){
+
+        setTimeout(function(){
+
+            if(studentDatabase.length > 0){
+
+                resolve(studentDatabase);
+
+            }
+            else{
+
+                reject("No students found.");
+
+            }
+
+        }, 3000);
 
     });
 
 }
 
-setTimeout(displayStudents, 3000);
+fetchStudents()
+.then(function(students){
+
+    console.log("Promise executed successfully.");
+    console.log(students);
+
+})
+.catch(function(error){
+
+    console.log(error);
+
+});

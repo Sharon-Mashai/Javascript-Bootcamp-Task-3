@@ -1,49 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup Portal</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form{
+            width: 350px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"]{
+            width: 100%;
+            padding: 5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .error{
+            color: red;
+            font-size: 14px;
+        }
+
+        .invalid{
+            border: 2px solid red;
+        }
+
+        .terms-container{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .terms-container input[type="checkbox"]{
+            width: auto;
+            margin: 0;
+        }
+
+        #studentOutput{
+            margin-top: 20px;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-    <div class="container">
+    <h1>Signup Portal</h1>
 
-        <h1>Signup Portal</h1>
+    <form id="signupForm">
 
-        <form id="signupForm">
+        <label>Username</label><br>
+        <input type="text" id="username">
+        <span class="error" id="usernameError"></span>
+        <br><br>
 
-            <label for="username">Username</label>
-            <input type="text" id="username">
-            <span id="usernameError" class="error"></span>
+        <label>Email</label><br>
+        <input type="email" id="email">
+        <span class="error" id="emailError"></span>
+        <br><br>
 
-            <label for="email">Email</label>
-            <input type="text" id="email">
-            <span id="emailError" class="error"></span>
+        <label>Password</label><br>
+        <input type="password" id="password">
+        <span class="error" id="passwordError"></span>
+        <br><br>
 
-            <label for="password">Password</label>
-            <input type="password" id="password">
-            <span id="passwordError" class="error"></span>
+        <div class="terms-container">
+            <input type="checkbox" id="terms">
+            <label for="terms">I accept Terms and Conditions</label>
+        </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="terms">
-                <label for="terms">I accept the Terms and Conditions</label>
-            </div>
+        <span class="error" id="termsError"></span>
 
-            <span id="termsError" class="error"></span>
+        <br><br>
 
-            <button type="submit">Sign Up</button>
+        <button type="submit">Sign Up</button>
 
-        </form>
+    </form>
 
-        <hr>
+    <br>
 
-        <button id="resendBtn" disabled>
-            Resend Verification (10)
-        </button>
+    <button id="resendBtn" disabled>
+        Resend Verification (10)
+    </button>
 
-    </div>
+    <div id="studentOutput"></div>
 
     <script src="validation.js"></script>
     <script src="async.js"></script>
