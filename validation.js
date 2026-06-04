@@ -100,44 +100,53 @@ form.addEventListener("submit", function(event){
 
     if(valid){
 
-        alert("Signup Successful!");
+    alert("Signup Successful!");
 
-    }
+    startVerificationCountdown();
+
+}
 
 });
 
 
 // Countdown Timer
-
 let countdown = 10;
 
 const resendBtn = document.getElementById("resendBtn");
 
-let timer = setInterval(function(){
+function startVerificationCountdown(){
 
-    countdown--;
+    resendBtn.disabled = true;
+
+    countdown = 10;
 
     resendBtn.textContent =
     `Resend Verification (${countdown})`;
 
-    if(countdown === 0){
+    let timer = setInterval(function(){
 
-        clearInterval(timer);
-
-        resendBtn.disabled = false;
+        countdown--;
 
         resendBtn.textContent =
-        "Resend Verification";
+        `Resend Verification (${countdown})`;
 
-    }
+        if(countdown === 0){
 
-}, 1000);
+            clearInterval(timer);
 
+            resendBtn.disabled = false;
 
-// Resend Button Click Event
+            resendBtn.textContent =
+            "Resend Verification";
+        }
+
+    }, 1000);
+}
 
 resendBtn.addEventListener("click", function(){
 
     alert("Verification email has been resent.");
+
+    startVerificationCountdown();
 
 });
